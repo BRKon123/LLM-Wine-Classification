@@ -80,7 +80,7 @@
    - Purpose: Enhanced classification using Retrieval-Augmented Generation (RAG)
    - Features:
      - Combines LLM with similar wine examples
-     - Uses ChromaDB for efficient similarity search
+     - Uses ChromaDB for similarity search
      - Embeds training data (first 800 entries)
      - Retrieves relevant examples for each prediction
    - Implementation:
