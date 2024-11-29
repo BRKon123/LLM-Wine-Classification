@@ -110,5 +110,5 @@ if __name__ == "__main__":
     guess_wine_country_with_rag(
         api_key=os.getenv("ARTIFICIAL_API_KEY"),
         wine_data_path="data/wine_quality_1000.csv",
-        use_cot=True
+        use_cot=False
     )
