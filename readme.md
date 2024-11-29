@@ -72,12 +72,11 @@
      - Uses OpenAI's API for wine country prediction
      - Processes wine descriptions and metadata
      - Supports Chain-of-Thought (CoT) reasoning
-     - Tracks and reports prediction accuracy
    - Implementation:
      - Tests on last 200 entries of dataset
      - Formats wine information for LLM consumption
      - Extracts predictions from LLM responses
-     - Handles API errors gracefully
+     - Handles rate limiting by waiting before retrying
 
 4. **RAG-Enhanced Classification** (`src/rag_llm.py`)
    - Purpose: Enhanced classification using Retrieval-Augmented Generation (RAG)
@@ -95,7 +94,7 @@
 
 #### Traditional ML Notes
 
-The traditional machine learning approach to wine classification shows interesting but mixed results. Using standard NLP techniques and two classic models, we achieved moderate success: Logistic Regression showed around 79% accuracy, surprisingly outperforming the Random Forest model which achieved 71%. However, these headline figures mask significant variations in performance across different wine origins. Both models showed a strong bias towards US wines (the majority class), achieving their best performance here with an F1-score of 86% for Logistic Regression. The models struggled more with European wines, particularly with the smaller classes like Spanish wines, where we saw high precision but very low recall. French and Italian wines saw moderate performance with F1-scores hovering around 60-70%.
+The traditional machine learning approach to wine classification shows interesting but mixed results. Using standard NLP techniques and two classic models, we achieved moderate success: Logistic Regression showed around 79% accuracy, surprisingly outperforming the Random Forest model which achieved 71%. However, these figures mask significant variations in performance across different wine origins. Both models showed a strong bias towards US wines (the majority class), achieving their best performance here with an F1-score of 86% for Logistic Regression. The models struggled more with European wines, particularly with the smaller classes like Spanish wines, where we saw high precision but very low recall. French and Italian wines saw moderate performance with F1-scores hovering around 60-70%.
 
 These results highlight several key challenges in traditional ML approaches to this problem. The significant class imbalance in our dataset could be impacting model performance, and while feature engineering helps capture some patterns, the models still struggle with the subtle geographical nuances in wine descriptions. While achieving decent overall accuracy, the inconsistent performance across different countries suggests that more sophisticated approaches might be needed. This limitation of traditional ML/NLP methods in capturing the complex relationships between wine descriptions and their origins provided strong motivation for exploring more advanced approaches like Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG).
 
@@ -103,6 +102,6 @@ These results highlight several key challenges in traditional ML approaches to t
 
 Using Large Language Models (LLMs) in the wine classification task revealed some interesting insights about both the models and the nature of the problem itself. The basic LLM approach, without any Chain-of-Thought (CoT), suprised me by achieved the best performance with an accuracy around 83% on the last 200 samples of data. This outperformed both the traditional ML approaches and, interestingly, an approach that should seemingly perform better (COT). Using Retrieval Augmented Generation (RAG) without COT achieved the best performance on the last 200 samples of data with 87% accuracy.
 
-The superior performance of approaches without COT suggest a few things. First, it indicates that the base LLM (GPT-3.5/4) already possesses substantial knowledge about wines and their geographical origins, likely from its training data. The fact that adding CoT drastically decreases (COT performance is 67.5% on last 200 samples) it performance suggests that for this particular task, additional reasoning might actually be introducing noise rather than helpful information.
+The superior performance of approaches without COT suggest a few things. First, it indicates that the base LLM (GPT-3.5/4) already possesses substantial knowledge about wines and their geographical origins, likely from its training data. This compensates for the fact that our training data has less samples from certain countries. The fact that adding CoT drastically decreases (COT performance is 67.5% on last 200 samples) it performance suggests that for this particular task, additional reasoning might actually be introducing noise rather than helpful information.
 
 This pattern challenges my initial assumption that explicit reasoning (CoT) would lead to better results. Instead, it suggests that wine origin classification is perhaps better off being handles as more of a pattern recognition task than a reasoning task, something that the base LLM is already capable enough to handle. The model appears to be picking up on linguistic and descriptive patterns in wine descriptions that directly map to their countries of origin, without needing additional context or explicit reasoning steps. Or that the reasoning steps required are a lot more complicated than the model is capable of producing.
