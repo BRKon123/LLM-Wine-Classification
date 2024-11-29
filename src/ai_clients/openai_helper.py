@@ -18,13 +18,22 @@ class OpenAIHelper:
         **kwargs
     ) -> str:
         """
-        Create a chat completion with retry logic for rate limiting
+        Create a chat completion with retry logic for rate limiting.
+
+        Args:
+            messages: List of message dictionaries with 'role' and 'content' keys
+            model: Name of the model to use for completion
+            max_retries: Maximum number of retry attempts for rate-limited requests
+            retry_delay: Delay in seconds between retry attempts
+            **kwargs: Additional arguments to pass to the API
+
+        Returns:
+            str: The generated completion text from the model
         """
         headers = {
             "x-api-key": self.api_key,
             "Content-Type": "application/json"
         }
-        
         payload = {
             "model": model,
             "messages": messages,
