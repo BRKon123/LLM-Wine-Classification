@@ -51,7 +51,6 @@
      - Creates country-wise comparisons
      - Generates plots for wine varieties
      - Provides insights into wine description patterns
-   - Dependencies: pandas, matplotlib, seaborn
 
 2. **Traditional NLP Analysis** (`src/wine_ratings_traditional_nlp.ipynb`)
 
