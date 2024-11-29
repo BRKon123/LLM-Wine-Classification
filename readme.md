@@ -33,7 +33,6 @@
    ```
 
    This command will read the `requirements.txt` file and install all the listed packages.
-   For using the llm files, you must add the api key to a .env file
 
 4. **Deactivate the Virtual Environment**
 
@@ -42,6 +41,10 @@
    ```bash
    deactivate
    ```
+
+5. **Running LLM Scripts**
+   For using the llm files, you must add the api key to a .env file.
+   Also the scripts should be run from the root directory of the git repo
 
 ### Code
 
